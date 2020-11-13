@@ -16,10 +16,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { HomepageComponent } from './homepage/homepage.component';
+import { TableListComponent } from './table-list/table-list.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomepageComponent,
+    TableListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
