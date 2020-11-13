@@ -1,3 +1,165 @@
-<p>
-  table-list works!
-</p>
+<div class="container-fluid">
+    <div class="row jumbotron">
+        <div class="col-md-12 d-flex justify-content-start">
+            <button type="button" mat-raised-button class="btn btn-danger" [routerLink]="['/home']" routerLinkActive="router-link-active">
+      <i class="material-icons">arrow_back</i> Voltar</button>
+        </div>
+        <div class="col-md-12"> &nbsp;</div>
+
+        <div class="col-md-12">
+            <div class="input-group d-flex justify-content-center">
+                <input type="text" (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar...">
+                <button mat-raised-button type="button" class="btn btn-white btn-round btn-just-icon">
+              <i class="material-icons">search</i>
+            </button>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-end">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button mat-button type="button" class="btn btn-primary" (click)="exporter.exportTable('xls')">Exportar em XLS</button>
+                <button mat-button type="button" class="btn btn-secondary" (click)="exporter.exportTable('csv')">Exportar em CSV</button>
+                <button mat-button type="button" class="btn btn-info" (click)="exporter.exportTable('xml')">Exportar em XML</button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="mat-elevation-z8">
+                            <table mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter" class="col-md-12">
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="capital">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Capital</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.capital}} </td>
+                                </ng-container>
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="region">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Região</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+                                </ng-container>
+
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="subregion">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub-região</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.subregion}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="population">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>População </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.population}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="area">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Área </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="timezones">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fuso Horário </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.timezones[0]}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="nativeName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome Nativo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.nativeName}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns1;" id="linhas" data-toggle="modal" data-target="#modal" (click)="viewDetailsData(row)">
+                                </tr>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <mat-progress-spinner *ngIf="showLoading" mode="indeterminate"></mat-progress-spinner>
+                            </div>
+
+                            <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header ">
+                <h4>Detalhes</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="view_data_details.name" type="text" placeholder="Nome" name="name" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="view_data_details.capital" type="text" placeholder="Capital" name="capital" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="view_data_details.subregion" type="text" placeholder="Sub-região" name="subregion" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="view_data_details.population" type="text" placeholder="População" name="population" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="view_data_details.area" type="text" placeholder="Área" name="area" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                            <ng-container *ngFor="let item of view_data_details.timezones">
+                                <mat-form-field>
+                                    <input matInput value="{{item}}" type="text" placeholder="Fuso Horário" name="area" disabled>
+                                </mat-form-field>
+                            </ng-container>
+                        </div>
+
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="view_data_details.nativeName" type="text" placeholder="Nome Nativo" name="nativeName" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-12">
+                            <mat-label>Bandeira</mat-label> <br>
+                            <img src="{{view_data_details.flag}}" alt="" width="100" srcset="">
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center">
+                        <button mat-raised-button type="button" class="btn btn-outline-danger" data-dismiss="modal">OK</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>

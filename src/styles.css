@@ -1,3 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body div.cdk-overlay-container {
+    z-index: 99999;
+}
+
+.cdk-overlay-pane {
+    z-index: 99999 !important;
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+.mat-select-menu-container {
+    z-index: 99999 !important;
+}
+
+.mat-dialog-container {
+    z-index: 99999;
+}
+
+.mat-select-panel {
+    z-index: 99999 !important;
+}
+
+.mat-primary {
+    z-index: 0 !important;
+}

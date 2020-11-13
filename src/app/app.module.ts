@@ -14,11 +14,16 @@ import {
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { TableListComponent } from './table-list/table-list.component';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './_services/auth.service';
+import { ErrorInterceptor } from './_helper/error.interceptor';
+import { JwtInterceptor } from './_helper/jwt.interceptor';
+import { RestcountriesService } from './_services/restcountries.service';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
   declarations: [
@@ -66,9 +71,13 @@ import { LoginComponent } from './login/login.component';
     MatDialogModule,
     MatAutocompleteModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTableExporterModule
   ],
-  providers: [],
+  providers: [ AuthService, RestcountriesService,
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
