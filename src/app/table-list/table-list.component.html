@@ -17,9 +17,9 @@
 
         <div class="col-md-12 d-flex justify-content-end">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button mat-button type="button" class="btn btn-primary" (click)="exporter.exportTable('xls')">Exportar em XLS</button>
-                <button mat-button type="button" class="btn btn-secondary" (click)="exporter.exportTable('csv')">Exportar em CSV</button>
-                <button mat-button type="button" class="btn btn-info" (click)="exporter.exportTable('xml')">Exportar em XML</button>
+                <button mat-button type="button" class="btn btn-primary" (click)="exporter.exportTable('xls',{fileName:'restcountries', sheet: 'restcountries', Props: {Author: 'vmutondo'}})">Exportar em XLS</button>
+                <button mat-button type="button" class="btn btn-secondary" (click)="exporter.exportTable('csv', {fileName:'restcountries', sheet: 'restcountries', Props: {Author: 'vmutondo'}})">Exportar em CSV</button>
+                <button mat-button type="button" class="btn btn-info" (click)="exporter.exportTable('xml' ,{fileName:'restcountries', sheet: 'restcountries', Props: {Author: 'vmutondo'}})">Exportar em XML</button>
             </div>
         </div>
         <div class="col-md-12">

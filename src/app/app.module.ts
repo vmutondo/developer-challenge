@@ -24,13 +24,16 @@ import { ErrorInterceptor } from './_helper/error.interceptor';
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { RestcountriesService } from './_services/restcountries.service';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { ChartsModule } from 'ng2-charts';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     TableListComponent,
-    LoginComponent
+    LoginComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import { MatTableExporterModule } from 'mat-table-exporter';
     MatAutocompleteModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatTableExporterModule
+    MatTableExporterModule,
+    ChartsModule
   ],
   providers: [ AuthService, RestcountriesService,
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
