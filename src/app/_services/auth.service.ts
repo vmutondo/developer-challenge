@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,    private router: Router) {
     this.currentUserSubject = new BehaviorSubject<MainUser>(
-      JSON.parse(localStorage.getItem("sw"))
+      JSON.parse(localStorage.getItem("2iBi"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -35,10 +35,10 @@ export class AuthService {
       username: username,
       password: password
     };
-    return this.http.post<any>(`${URL.url}/guest/login`, credentials).pipe(
+    return this.http.post<any>(`${URL.url_jwt_auth}/guest/login`, credentials).pipe(
       map(user => {
         if (user && user.token) {
-          localStorage.setItem("sw", JSON.stringify(user));
+          localStorage.setItem("2iBi", JSON.stringify(user));
           this.currentUserSubject.next(user);
           this.currentUserRoleSubject = user.nome;
           
@@ -48,65 +48,6 @@ export class AuthService {
         }
         return user;
       }) );
-  }
-
-  loginBackEndAdmin(username: string, password: string) {
-    let credentials = {
-      username: username,
-      password: password
-    };
-    return this.http.post<any>(`${URL.url}/guest/catalayzer-login`, credentials).pipe(
-      map(user => {
-        if (user && user.token) {
-          localStorage.setItem("sw", JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          this.currentUserRoleSubject = user.nome;
-          
-        }
-        else if(user == null) {
-          alert(user)
-        }
-        return user;
-      }) );
-  }
-
-  loginBackEndNewPassWord(id:string, password: string, tenant_id: string) {
-
-    let body  = {
-      password: password,
-      user_id:id
-    }
- 
-
-    return this.http.post<any>(`${URL.url}/guest/${tenant_id}/set/password`, body).pipe(
-      map(user => {
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-
-          localStorage.setItem("sw", JSON.stringify(user));
-          // localStorage.setItem('role', user.role.id)
-          this.currentUserSubject.next(user);
-          this.currentUserRoleSubject = user.nome;
-          
-        }
-        else if(user == null) {
-          alert(user)
-        }
-        return user;
-      }) );
-  }
-
-  loginBackEndResetPassWord(email: string, password: string){
-    let novo = {
-      email: email,
-      password: password
-    };
-
-    return this.http.post<any>(`${URL.url}/forget/password`, novo).pipe(
-      retry(1),
-      // catchError(this.handleError('resetPassword', null))
-    );
   }
 
   getTokenExpirationDate(token: string): Date {
@@ -120,7 +61,7 @@ export class AuthService {
   }
 
   getToken(): string {
-    let data = localStorage.getItem("sw");
+    let data = localStorage.getItem("2iBi");
     return data;
   }
 
@@ -134,7 +75,7 @@ export class AuthService {
   }
 
   logoutBackEnd() {
-    localStorage.removeItem("sw");
+    localStorage.removeItem("2iBi");
     this.currentUser = null;
     this.router.navigate(["/login"]);
   }

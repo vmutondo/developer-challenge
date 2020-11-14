@@ -4,6 +4,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { TableListComponent } from './table-list/table-list.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,9 +14,9 @@ const routes: Routes = [
   },
 
   { path: 'login',   component: LoginComponent },
-  { path: 'home',   component: HomepageComponent },
-  { path: 'table-list',   component: TableListComponent },
-  { path: 'statistics',   component: StatisticsComponent },
+  { path: 'home',   component: HomepageComponent, canActivate: [AuthGuard] },
+  { path: 'table-list',   component: TableListComponent, canActivate: [AuthGuard] },
+  { path: 'statistics',   component: StatisticsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
